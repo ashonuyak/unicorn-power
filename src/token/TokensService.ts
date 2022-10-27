@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { JwtService } from '@nestjs/jwt'
 import { TokensDto } from 'src/dto'
-import { TokenExpiredException } from 'src/guards/exceptions'
 import { TokenExpiredError } from './errors'
 import { Tokens } from './Tokens'
 import { TokensRepository } from './TokensRepository'
@@ -55,9 +54,7 @@ export class TokensService {
     const refreshToken = this.getRefreshToken(accountId)
 
     const tokens = new Tokens({ access_token: accessToken, refresh_token: refreshToken })
-    console.log(tokens)
-    const alo = await this.repository.save(tokens)
-    console.log(alo)
+    await this.repository.save(tokens)
 
     return { access_token: accessToken, refresh_token: refreshToken }
   }

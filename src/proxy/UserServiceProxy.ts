@@ -21,4 +21,8 @@ export class UserServiceProxy {
       throw err
     }
   }
+
+  public async create(dto: UserDto.CreateUser): Promise<void> {
+    this.userService.create(dto)
+  }
 }
