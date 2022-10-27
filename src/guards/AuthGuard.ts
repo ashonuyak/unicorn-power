@@ -1,6 +1,7 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common'
 import { TokenExpiredException } from './exceptions'
 import { TokensService } from 'src/token'
+import { TokenExpiredError } from 'src/token/errors'
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -13,7 +14,8 @@ export class AuthGuard implements CanActivate {
       request.tokenPayload = tokenPayload
       return true
     } catch (err) {
-      throw new TokenExpiredException()
+      if (err instanceof TokenExpiredError) throw new TokenExpiredException()
+      throw err
     }
   }
 }

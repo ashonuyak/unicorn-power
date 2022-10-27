@@ -1,5 +1,5 @@
-import { Tokens } from './token'
-import { User } from './user/User'
+import { Tokens } from '../token'
+import { User } from '../user/User'
 
 export const config = () => ({
   api: {
@@ -35,6 +35,13 @@ export const config = () => ({
       format: Number,
       default: 604800,
       env: 'REFRESH_TTL',
+    },
+  },
+  bcrypt: {
+    salt_rounds: {
+      format: Number,
+      default: 10,
+      env: 'BCRYPT_SALT_ROUNDS',
     },
   },
 })

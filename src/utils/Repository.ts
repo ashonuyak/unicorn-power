@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { Class } from 'type-fest'
 import { getManager } from 'typeorm'
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity'
-import { NotUnique } from './errors'
+import { NotUniqueError } from './errors'
 
 export interface IRepository<Entity> {
   save(entity: Entity): Promise<Entity>
@@ -30,7 +30,7 @@ export function Repository<Entity>(entity: Class<Entity>): Class<IRepository<Ent
 
     async save(entity: Entity, em = getManager()): Promise<Entity> {
       return em.save(entity).catch((err) => {
-        if (err.detail.includes('already exists')) throw new NotUnique()
+        if (err.detail.includes('already exists')) throw new NotUniqueError()
         throw err
       })
     }

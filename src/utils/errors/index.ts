@@ -1,1 +1,1 @@
-export * from './NotUnique'
+export * from './NotUniqueError'

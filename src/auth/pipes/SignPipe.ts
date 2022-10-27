@@ -1,11 +1,11 @@
 import { Injectable, PipeTransform } from '@nestjs/common'
 import { AuthDto } from 'src/dto'
-import { ValidationException } from '../exceptions'
+import { ValidationFailedException } from '../exceptions'
 
 @Injectable()
 export class SignPipe implements PipeTransform {
   transform(value: AuthDto.Sign): AuthDto.Sign {
-    if (!value.accountId || !value.password) throw new ValidationException()
+    if (!value.accountId || !value.password) throw new ValidationFailedException()
     return value
   }
 }
